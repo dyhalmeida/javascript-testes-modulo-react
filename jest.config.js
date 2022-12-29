@@ -4,8 +4,11 @@ module.exports = {
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
   },
+  moduleNameMapper: {
+    '^axios$': require.resolve('axios'),
+  },
   collectCoverageFrom: [
     '<rootDir>/components/**/*.js',
     '<rootDir>/pages/**/*.js',
-  ],
+  ]
 };
