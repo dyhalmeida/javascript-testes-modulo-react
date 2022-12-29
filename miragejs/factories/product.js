@@ -31,7 +31,7 @@ const images = [
 
 export default {
   product: Factory.extend({
-    title() {
+    description() {
       return faker.fake('{{lorem.words}}');
     },
     price() {
