@@ -10,6 +10,10 @@ const renderSearch = () => {
 
 describe('Search', () => {
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   beforeEach(() => {
     renderSearch()
   })
@@ -39,6 +43,17 @@ describe('Search', () => {
 
     expect(doSearch).toHaveBeenCalledWith(inputText)
     
+  });
+
+  it('Deve chamar doSearch quando o input de busca for limpado', async () => {
+    const inputText = 'any_text';
+    const input = screen.getByRole('searchbox');
+
+    await userEvent.type(input, inputText);
+    await userEvent.clear(input);
+
+    expect(doSearch).toHaveBeenCalledTimes(1);
+    expect(doSearch).toHaveBeenCalledWith('');
   });
 
 
