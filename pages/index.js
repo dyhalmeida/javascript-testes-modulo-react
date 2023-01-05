@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import ProductCard from '../components/product-card'
 import Search from '../components/search'
 import { useFetchProducts } from '../hooks/use-fetch-products'
+import { useCartStore } from '../store/cart';
 
 export default function Home() {
 
   const { products, error } = useFetchProducts()
   const [term, setTerm] = useState('');
   const [localProducts, setLocalProducts] = useState([]);
+  const { add: addToCart } = useCartStore(store => store.actions)
 
   useEffect(() => {
     if (!term) {
@@ -32,7 +34,7 @@ export default function Home() {
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
           {
             localProducts.length
-            ? ( localProducts.map(product => <ProductCard product={product} key={product.id} />) )
+            ? ( localProducts.map(product => <ProductCard product={product} key={product.id} addToCart={addToCart} />) )
             : !error 
             ? ( <h4 data-testid="no-products">No products</h4> ) 
             : null
